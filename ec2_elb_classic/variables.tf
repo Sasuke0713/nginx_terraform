@@ -1,6 +1,5 @@
 variable "tags" {
   default = {
-    Environment = "Prototype"
     ProductName = "Nginx"
   }
 }

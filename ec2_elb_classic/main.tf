@@ -21,5 +21,5 @@ module "ec2_elb_classic" {
   webpage                 = var.webpage
   webserver_desired_size  = var.webserver_desired_size
   webserver_max_size      = var.webserver_max_size
-  tags                    = var.tags
+  tags                    = merge(var.tags, { Environment = terraform.workspace })
 }

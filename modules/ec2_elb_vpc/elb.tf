@@ -1,6 +1,6 @@
 resource "aws_elb" "service_webserver_elb" {
-  name               = "${var.service}-elb"
-  availability_zones = var.aws_availability_zones
+  name            = "${var.service}-elb"
+  subnets         = var.vpc_public_subnet_ids
   security_groups = [aws_security_group.service_elb_sg.id]
 
   internal = false
