@@ -1,12 +1,8 @@
-resource "aws_default_vpc" "default" {
-  enable_classiclink = true
-  tags = merge(var.tags, { Name = var.service })
-}
 
 resource "aws_security_group" "service_sg" {
   name        = "${var.service}-webserver-sg"
   description = "Security group for ${var.service} Webserver ec2 hosts."
-  vpc_id      = aws_default_vpc.default.id
+  vpc_id      = var.vpc_id
   tags        = var.tags
   lifecycle {
     create_before_destroy = true
@@ -44,7 +40,7 @@ resource "aws_security_group_rule" "allow_all_outbound_from_ec2" {
 resource "aws_security_group" "service_elb_sg" {
   name        = "${var.service}-elb-sg"
   description = "Security group for ${var.service} elb."
-  vpc_id      = aws_default_vpc.default.id
+  vpc_id      = var.vpc_id
   tags        = var.tags
   lifecycle {
     create_before_destroy = true

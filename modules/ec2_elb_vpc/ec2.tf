@@ -29,7 +29,7 @@ data "template_file" "userdata" {
 }
 
 resource "aws_launch_configuration" "service_webserver" {
-  name_prefix          = "${terraform.workspace}_classic_${var.service}_webserver"
+  name_prefix          = "${terraform.workspace}_${var.service}_webserver"
   image_id             = data.aws_ami.ubuntu.id
   instance_type        = var.instance_type
   security_groups      = [aws_security_group.service_sg.id]
@@ -48,7 +48,7 @@ resource "aws_launch_configuration" "service_webserver" {
 
 resource "aws_autoscaling_group" "webserver_asg" {
   launch_configuration      = aws_launch_configuration.service_webserver.id
-  availability_zones        = var.aws_availability_zones
+  vpc_zone_identifier       = var.vpc_private_subnet_ids
   load_balancers            = [aws_elb.service_webserver_elb.name]
   min_size                  = var.webserver_min_size
   max_size                  = var.webserver_max_size
@@ -56,7 +56,7 @@ resource "aws_autoscaling_group" "webserver_asg" {
   desired_capacity          = var.webserver_desired_size
   health_check_grace_period = 180
   health_check_type         = "ELB"
-  name                      = "${terraform.workspace}_classic_${var.service}_webserver_asg_${aws_launch_configuration.service_webserver.name}"
+  name                      = "${terraform.workspace}_${var.service}_webserver_asg_${aws_launch_configuration.service_webserver.name}"
 
   lifecycle {
     create_before_destroy = true
@@ -74,7 +74,7 @@ resource "aws_autoscaling_group" "webserver_asg" {
 }
 
 resource "aws_autoscaling_policy" "webserver_scale_up" {
-    name = "${terraform.workspace}-classic-${var.service}-webserver-scale-up"
+    name = "${terraform.workspace}-${var.service}-webserver-scale-up"
     scaling_adjustment = 1
     adjustment_type = "ChangeInCapacity"
     cooldown = 300
@@ -82,7 +82,7 @@ resource "aws_autoscaling_policy" "webserver_scale_up" {
 }
 
 resource "aws_autoscaling_policy" "webserver_scale_down" {
-    name = "${terraform.workspace}-classic-${var.service}-webserver-scale-down"
+    name = "${terraform.workspace}-${var.service}-webserver-scale-down"
     scaling_adjustment = -1
     adjustment_type = "ChangeInCapacity"
     cooldown = 300
@@ -90,7 +90,7 @@ resource "aws_autoscaling_policy" "webserver_scale_down" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "cpu-high" {
-    alarm_name = "mem-util-high-${terraform.workspace}-classic-${var.service}"
+    alarm_name = "mem-util-high-${terraform.workspace}-${var.service}"
     comparison_operator = "GreaterThanOrEqualToThreshold"
     evaluation_periods = "3"
     metric_name = "CPUUtilization"
@@ -108,7 +108,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu-high" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "cpu-low" {
-    alarm_name = "mem-util-low-${terraform.workspace}-classic-${var.service}"
+    alarm_name = "mem-util-low-${terraform.workspace}-${var.service}"
     comparison_operator = "LessThanOrEqualToThreshold"
     evaluation_periods = "3"
     metric_name = "CPUUtilization"

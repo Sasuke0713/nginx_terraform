@@ -1,3 +1,8 @@
+variable "tags" {
+  type    = map(string)
+  default = {}
+}
+
 variable "aws_region" {
   description = "The AWS region to build the VPC in"
 }
@@ -18,26 +23,6 @@ variable "vpc_cidr" {
 
 variable "vpc_name" {
   description = "The name of the VPC"
-}
-
-variable "billing_tag" {
-  description = "The value to use for the Billing tag"
-}
-
-variable "product_name_tag" {
-  description = "The value to use for the ProductName tag"
-}
-
-variable "security_tag" {
-  description = "The value to use for the Security tag"
-}
-
-variable "environment_tag" {
-  description = "The value to use for the Environment tag"
-}
-
-variable "department_tag" {
-  description = "The value to use for the Department tag"
 }
 
 variable "public_subnet_01_name" {
