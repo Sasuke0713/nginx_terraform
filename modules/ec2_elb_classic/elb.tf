@@ -1,5 +1,5 @@
 resource "aws_elb" "service_webserver_elb" {
-  name               = "${var.service}-elb"
+  name               = "${terraform.workspace}-classic-${var.service}-elb"
   availability_zones = var.aws_availability_zones
   security_groups = [aws_security_group.service_elb_sg.id]
 
@@ -12,13 +12,13 @@ resource "aws_elb" "service_webserver_elb" {
     instance_protocol = "tcp"
   }
 
-  //health_check {
-  //  healthy_threshold   = 2
-  //  unhealthy_threshold = 5
-  //  timeout             = 3
-  //  target              = "TCP:8080"
-  //  interval            = 15
-  //}
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 5
+    timeout             = 3
+    target              = "TCP:8080"
+    interval            = 15
+  }
 
   lifecycle {
     create_before_destroy = true
