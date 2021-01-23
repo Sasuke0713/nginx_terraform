@@ -7,6 +7,7 @@ terraform {
     region         = "us-west-2"
     profile        = "sasuke-itachi-collab"
   }
+  required_version = "~> 0.13"
 }
 
 provider "aws" {
