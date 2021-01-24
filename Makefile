@@ -3,7 +3,7 @@ $(error WORKSPACE is not set)
 endif
 
 ifndef PATH
-$(error WORKSPACE is not set)
+$(error PATH is not set)
 endif
 
 .PHONY: all plan apply destroy
