@@ -18,6 +18,7 @@ cat <<EOT >> /var/www/${webpage}/html/index.html
     <meta charset="utf-8">
     <title>${title_webpage}</title>
 </head>
+<h1>${title_webpage}</h1>
 </html>
 EOT
 
