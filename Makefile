@@ -12,7 +12,7 @@ all: plan
 
 plan:
 	cd $(PATH) && \
-	/usr/local/bin/terraform workspace select $(WORKSPACE) || /usr/local/bin/terraform workspace new $(WORKSPACE) && /usr/local/bin/terraform init -no-color && \
+	/usr/local/bin/terraform init -no-color && /usr/local/bin/terraform workspace select $(WORKSPACE) || /usr/local/bin/terraform workspace new $(WORKSPACE) && \
 	/usr/local/bin/terraform plan
 
 apply:

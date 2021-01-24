@@ -31,3 +31,11 @@ make plan WORKSPACE=dev PATH=ec2_elb_vpc
 make apply WORKSPACE=dev PATH=ec2_elb_vpc
 make destroy WORKSPACE=dev PATH=ec2_elb_vpc
 ```
+
+# Run Nginx Service with the creation of your own VPC with public and private subnets along with routing in a containerized environment running in AWS Fargate
+
+```
+make plan WORKSPACE=dev PATH=fargate_alb_vpc
+make apply WORKSPACE=dev PATH=fargate_alb_vpc
+make destroy WORKSPACE=dev PATH=fargate_alb_vpc
+```
