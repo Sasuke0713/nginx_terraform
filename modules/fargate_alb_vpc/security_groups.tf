@@ -40,17 +40,7 @@ resource "aws_security_group_rule" "allow_inbound_tcp80_traffic_service-alb" {
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
-  cidr_blocks       = ["99.107.132.63/32"]
-  description       = "Allow inbound traffic on tcp port"
-}
-
-resource "aws_security_group_rule" "allow_inbound_tcp443_traffic_service-alb" {
-  security_group_id = aws_security_group.service_alb.id
-  type              = "ingress"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
-  cidr_blocks       = ["99.107.132.63/32"]
+  cidr_blocks       = ["0.0.0.0/0"]
   description       = "Allow inbound traffic on tcp port"
 }
 

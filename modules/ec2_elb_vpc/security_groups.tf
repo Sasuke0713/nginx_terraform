@@ -52,7 +52,7 @@ resource "aws_security_group_rule" "elb_ingress_from_internet" {
   to_port                  = 8080
   protocol                 = "tcp"
   security_group_id        = aws_security_group.service_elb_sg.id
-  cidr_blocks              = ["99.107.132.63/32"]
+  cidr_blocks              = ["0.0.0.0/0"]
   type                     = "ingress"
 }
 
